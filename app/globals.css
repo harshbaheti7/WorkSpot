@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #141414;
+  --color-surface: #1b1b1e;
+  --color-raised: #232327;
+  --color-sunken: #0e0e10;
+  --color-brand: #e88e2e;
+  --color-brand-hover: #f2a65a;
+  --color-accent2: #bf80ff;
+  --color-ink: #f4f4f5;
+  --color-muted: #a7a7ad;
+  --color-faint: #77777c;
+
+  --font-display: "Poppins", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+::selection {
+  background: #e88e2e;
+  color: #141414;
+}
+
+body {
+  background: #141414;
+}
+
+.leaflet-container {
+  font: inherit;
+  z-index: 0;
+  background: #0e0e10;
+}
+
+/* Dark-mode the OSM raster tiles; markers and controls are unaffected. */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.92);
+}
+
+.leaflet-popup-content-wrapper {
+  background: #232327;
+  color: #f4f4f5;
+  border-radius: 12px;
+}
+
+.leaflet-popup-content a {
+  color: #e88e2e;
+}
+
+.leaflet-bar a {
+  background: #232327;
+  color: #f4f4f5;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.leaflet-control-attribution {
+  background: rgba(14, 14, 16, 0.7) !important;
+  color: #77777c !important;
+  font-size: 10px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #a7a7ad !important;
+}
