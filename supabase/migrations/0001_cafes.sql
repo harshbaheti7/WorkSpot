@@ -1,0 +1,73 @@
+-- WorkSpot v1: cafes table + seed import (42 SF spots).
+-- Run this in the Supabase dashboard SQL editor.
+create table if not exists cafes (
+  id text primary key,
+  name text not null,
+  neighborhood text not null,
+  address text,
+  lat double precision,
+  lng double precision,
+  wifi text,
+  wifi_note text,
+  outlets text,
+  outlets_note text,
+  noise smallint,
+  noise_note text,
+  laptop text,
+  laptop_note text,
+  hours_note text,
+  summary text not null,
+  rating double precision,
+  price text,
+  user_note text,
+  source text not null
+);
+
+alter table cafes enable row level security;
+
+drop policy if exists "public read" on cafes;
+create policy "public read" on cafes for select using (true);
+
+insert into cafes (id, name, neighborhood, address, lat, lng, wifi, wifi_note, outlets, outlets_note, noise, noise_note, laptop, laptop_note, hours_note, summary, rating, price, user_note, source) values
+('haus', 'Haus Coffee', 'Mission', '3086 24th St', 37.7526588, -122.4137289, 'yes', 'Password protected', 'some', NULL, 2, 'Serene, minimalist room', 'welcome', NULL, 'Mon–Fri 8AM–3PM, Sat–Sun 9AM–4PM', 'Calm minimalist room with a fireplace, comfy couches, and the biggest back patio of any shop on this list. A top pick for deep work.', null, NULL, NULL, 'guide'),
+('java-beach', 'Java Beach Cafe', 'Outer Sunset', '1396 La Playa St', 37.7604494, -122.508978, 'yes', NULL, 'some', 'Under the wooden benches', 3, 'Lively surf-diner buzz', 'welcome', NULL, 'Closes 5pm', 'Laid-back surf institution with tons of seating, a full menu, and beer on tap. Easy to settle in for a long session near the ocean.', null, NULL, NULL, 'guide'),
+('java-on-ocean', 'Java on Ocean Cafe', 'Ocean Ave Corridor', '1700 Ocean Ave', 37.7248846, -122.4601039, 'yes', 'Password protected', 'some', NULL, 2, NULL, 'welcome', 'Stay-all-day spot', 'Daily from ~6:30AM; close varies (6–9PM)', 'Big corner room with tall windows, plenty of seats, and food that keeps you fueled. The reliable all-day option on this stretch.', null, NULL, NULL, 'guide'),
+('as-quoted', 'As Quoted', 'Inner Richmond', '3613 Sacramento St', 37.7874179, -122.4522343, 'yes', 'Password protected', 'some', NULL, 2, 'Calm and polished', 'welcome', NULL, 'Mon–Sat 8AM–3PM, Sun closed', 'Bright white minimalist room with strong natural light and excellent food. Leans polished-cafe over coworking den, but works well.', null, NULL, NULL, 'guide'),
+('comptons', 'Compton''s Coffee House', 'Pacific Heights', '1910 Fillmore St', 37.7874194, -122.433406, 'yes', 'Password protected', 'none', 'Charge before you come', 2, 'Cozy and focused', 'welcome', 'Everyone here is working', NULL, 'Tiny family-run room where seemingly every table is deep in work. Great focus energy if your battery can last the session.', null, NULL, NULL, 'guide'),
+('jane-fillmore', 'Jane on Fillmore', 'Pacific Heights', '2123 Fillmore St', 37.7893608, -122.4340823, 'yes', 'Free', 'some', 'Upstairs', 4, 'Always busy, pretty loud', 'limited', 'Eat, work a bit, move on', NULL, 'Beloved brunchy staple with standout baked goods. Better for a working bite than an all-day office — it stays loud and crowded.', null, NULL, NULL, 'guide'),
+('neighbors-corner', 'Neighbor''s Corner', 'Noe Valley', 'Douglass St', 37.7555581, -122.4387583, 'yes', 'Password protected', 'few', 'A few in the back corner', 2, 'Snug and calm', 'welcome', 'Good for a session, not all day', NULL, 'Charming Japanese-inspired bakery with hojicha lattes and laptop-friendly little tables. Lovely for a focused couple of hours.', null, NULL, NULL, 'guide'),
+('andytown', 'Andytown Coffee Roasters', 'Outer Sunset', '3655 Lawton St', 37.7567163, -122.502318, 'no', 'Tech-free zone Fri–Sun', 'few', 'One outlet spotted', 2, NULL, 'limited', 'No devices on weekends', NULL, 'Ocean-view stunner with top-tier coffee and surf-shop charm. Come to think and read — not to get online.', null, NULL, NULL, 'guide'),
+('the-mill', 'The Mill', 'NoPa', '736 Divisadero St', 37.7764572, -122.4379121, 'no', NULL, 'none', NULL, 3, NULL, 'limited', 'Laptop-free tables marked', NULL, 'Gorgeous bread-and-coffee hall that openly asks laptop campers to keep it short. Fine charged-up for one focused block.', null, NULL, NULL, 'guide'),
+('sightglass', 'Sightglass Coffee', 'SoMa', '270 7th St', 37.7770339, -122.4084399, 'no', 'No-WiFi policy chain-wide', 'none', NULL, 3, 'Busy communal tables', 'welcome', 'People tether here', NULL, 'Famous roastery with supremely comfy booth seating and zero WiFi anywhere. A tethering-and-headphones kind of work spot.', null, NULL, NULL, 'guide'),
+('social-study', 'The Social Study', 'Fillmore District', '1795 Geary Blvd', 37.7841757, -122.4325036, 'yes', 'Open, no passcode', 'none', NULL, 3, 'Bar energy after 5pm', 'limited', 'No laptops past 5pm', 'Laptops until 5pm only', 'Coffee by day, pub with a DJ by night. A genuinely fun pre-5pm work session with bar food — then the laptops close.', null, NULL, NULL, 'guide'),
+('flywheel', 'Flywheel Coffee Roasters', 'Haight-Ashbury', '672 Stanyan St', 37.7697048, -122.4533573, 'yes', NULL, 'none', NULL, 3, 'Roastery hum, high ceilings', 'welcome', NULL, NULL, 'Family-run roastery across from the park with warehouse charm and a hidden back patio. Great coffee, bring a full battery.', null, NULL, NULL, 'guide'),
+('saint-frank', 'Saint Frank Coffee', 'Russian Hill', '2340 Polk St', 37.7984855, -122.4220547, 'yes', NULL, 'none', 'Arrive fully charged', null, NULL, 'welcome', NULL, NULL, 'Beautifully designed modern room with house-made nut milks. No outlets — arrive fully charged.', null, NULL, NULL, 'guide'),
+('jane-on-third', 'Jane on Third', 'Financial District', '151 3rd St', 37.785586, -122.4008924, NULL, NULL, NULL, NULL, null, NULL, NULL, NULL, NULL, 'From the owner''s saved list. Work details not researched yet — check back soon.', 4.3, '$10–20', NULL, 'owner'),
+('progressive-grounds', 'Progressive Grounds', 'Bernal Heights', '400 Cortland Ave', 37.7390772, -122.417695, 'yes', 'Free', NULL, NULL, null, NULL, 'welcome', 'Built for long stays', NULL, 'Bernal Heights staple with a spacious patio, plenty of indoor tables, and food and drink for a full camp-out.', 4.5, '$10–20', 'Saturday chess meetup probably', 'owner'),
+('adan-cafe', 'Adan Cafe', 'Union Square', '120 Mason St', 37.7846959, -122.4091832, NULL, NULL, NULL, NULL, null, NULL, NULL, NULL, NULL, 'From the owner''s saved list. Work details not researched yet — check back soon.', 4.9, NULL, NULL, 'owner'),
+('sohn', 'Sōhn', 'Dogpatch', '2535 3rd St', 37.7573732, -122.3880403, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Two-level Korean cafe with minimalist design, matcha alongside espresso. Plenty of room to settle in with a laptop.', null, NULL, NULL, 'guide'),
+('cafe-international', 'Cafe International', 'Lower Haight', '508 Haight St', 37.7722888, -122.4310017, 'yes', NULL, NULL, NULL, 2, 'Low-key, read-and-relax room', 'welcome', NULL, NULL, 'Huge low-key room with worn-in couches, endless tables, and a muraled back garden. Easy to disappear into work here.', null, NULL, NULL, 'guide'),
+('jandii', 'Jandii', 'Parkside', '1100 Taraval St', 37.743031, -122.477997, 'yes', NULL, 'some', 'Easy to find', 2, 'Calm, spa-like', 'welcome', NULL, 'Daily 9AM–4PM', 'Airy two-story Parkside shop with a calm, spa-like feel and easy-to-find outlets. Arrive early — seats go fast.', null, NULL, NULL, 'guide'),
+('ocean-beach-cafe', 'Ocean Beach Cafe', 'Richmond', '734 La Playa St', 37.7745348, -122.5099715, 'yes', NULL, NULL, NULL, 2, 'Relaxed beach-town pace', 'welcome', NULL, NULL, 'A block from the ocean with strong natural light, bar and table seating, plus a non-alcoholic bottle shop and mocktails.', null, NULL, NULL, 'guide'),
+('beluna', 'Beluna Cafe', 'Lower Haight', '1195 Oak St', 37.7728668, -122.4388654, 'yes', 'Fast', 'many', 'Abundant', 2, 'Low buzz to hush-hush', 'welcome', NULL, 'Daily 8AM–3PM', 'Airy Panhandle-side workhorse with abundant plugs, fast wifi, a printer, and a second-floor mezzanine. Built for working.', null, NULL, NULL, 'guide'),
+('fiddle-fig', 'Fiddle Fig Cafe', 'Russian Hill', '790 Lombard St', 37.802774, -122.4141336, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Plant-filled corner shop with roomy sun-lit seating, shakes, and sandwiches. A cheerful place to post up.', null, NULL, NULL, 'guide'),
+('zocalo', 'Zocalo Coffee', 'Mission Bay', '290 Channel St', 37.7731177, -122.3937057, 'yes', NULL, 'few', 'Not many', null, NULL, 'welcome', NULL, NULL, 'Glass-walled shop in the middle of Mission Creek Park with brownies worth the trip. Light on outlets, heavy on views.', null, NULL, NULL, 'guide'),
+('delah', 'Delah Coffee', 'SoMa', '370 4th St', 37.7809853, -122.4002625, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, 'Open till 11pm', 'Yemeni coffee shop known for spiced lattes and milk cake. Rare late hours make it a night-owl option.', null, NULL, NULL, 'guide'),
+('tarragon', 'Tarragon Cafe', 'Lower Haight', '200 Fillmore St', 37.7713117, -122.4301572, 'yes', NULL, 'none', 'Bring a full battery', null, NULL, 'welcome', NULL, NULL, 'Breakfast-and-lunch spot with tons of tables and a big menu spanning toast to nachos. No outlets — plan ahead.', null, NULL, NULL, 'guide'),
+('ballast', 'Ballast Coffee', 'West Portal', '329B West Portal Ave', 37.7393058, -122.4674579, 'yes', NULL, NULL, NULL, 2, 'Quiet and airy', 'welcome', NULL, NULL, 'Quiet, airy West Portal cafe with ube and calamansi drinks, a sun-filled patio, and a back room overlooking a garden.', null, NULL, NULL, 'guide'),
+('upfordayz', 'Upfordayz', 'Nob Hill', '1801 Polk St', 37.7933614, -122.421405, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Huge light-flooded Nob Hill room with widely spread tables. Space to breathe while you work.', null, NULL, NULL, 'guide'),
+('cafe-du-soleil', 'Café du Soleil', 'Lower Haight', '211 Fillmore St', 37.7713623, -122.4304041, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Sunny French-style corner bistro with a big communal table, covered patio, and beer and wine later in the day.', null, NULL, NULL, 'guide'),
+('verve', 'Verve Coffee Roasters', 'Castro', '2101 Market St', 37.7670978, -122.4291409, 'yes', NULL, 'few', 'A single plug', null, NULL, 'welcome', NULL, NULL, 'Castro location with couches, big group tables, and top-tier coffee. Full-day friendly if you snag the one plug.', null, NULL, NULL, 'guide'),
+('home', 'Home Coffee Roasters', 'Sunset', '1222 Noriega St', 37.754425, -122.4770101, 'yes', 'Good wifi', NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Outer Sunset shop with playful specialty lattes, good wifi, and plenty of spacious tables for typing away.', null, NULL, NULL, 'guide'),
+('chestnut-st', 'Chestnut Street Coffee Roastery', 'Marina', '2331 Chestnut St', 37.7997694, -122.4417106, 'yes', NULL, NULL, NULL, 2, 'Spread-out, private seats', 'welcome', NULL, NULL, 'Marina roastery with spread-out seats and a quick-coffee regular crowd. Good pick for deadline work in relative privacy.', null, NULL, NULL, 'guide'),
+('mercury', 'Mercury Cafe', 'Hayes Valley', '201 Octavia St', 37.7739857, -122.424226, 'yes', NULL, 'few', 'Not many plugs', 2, 'Relaxed', 'welcome', NULL, NULL, 'Bright unpretentious Hayes Valley room with baked scones that sell out. Relaxing, but charge up first — plugs are scarce.', null, NULL, NULL, 'guide'),
+('blue-danube', 'Blue Danube', 'Richmond', '306 Clement St', 37.7831528, -122.4625522, 'yes', 'Paid, $1/hour', NULL, NULL, 2, 'Cozy living-room feel', 'welcome', NULL, NULL, 'Eclectic living-room-style Richmond spot with art, bookshelves, and sandwiches. All-day friendly; wifi costs $1/hour.', null, NULL, NULL, 'guide'),
+('duboce-park', 'Duboce Park Cafe', 'Duboce Triangle', '2 Sanchez St', 37.769195, -122.4315398, 'yes', NULL, 'none', 'No plugs', null, NULL, 'welcome', NULL, NULL, 'Cheerful cafe across from the Duboce dog park with a beloved house salad. No plugs, so watch your battery.', null, NULL, NULL, 'guide'),
+('atlas', 'Atlas Cafe', 'Mission', '3049 20th St', 37.7589419, -122.4114349, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Big unfussy Mission room with a back patio and a menu stretching from coffee to beer and wine.', null, NULL, NULL, 'guide'),
+('caffe-trieste', 'Caffe Trieste', 'North Beach', '601 Vallejo St', 37.7986732, -122.4072962, 'yes', NULL, NULL, NULL, null, NULL, 'limited', 'Allowed, but analog fits better', 'Open till 10pm', 'Historic cash-only espresso house packed with newspaper readers and journalers. Laptops allowed but analog fits the room better.', null, NULL, NULL, 'guide'),
+('hungry', 'Hungry Cafe', 'Bayview', '1550 Evans Ave', 37.7434057, -122.386962, 'yes', NULL, 'many', 'Plenty', null, NULL, 'welcome', NULL, NULL, 'Free two-floor coworking-style cafe inside the Southeast Community Center with Egyptian and North African dishes.', null, NULL, NULL, 'guide'),
+('hardware', 'Hardware Coffee Co', 'West Portal', '32 W Portal Ave', 37.7405782, -122.4664712, 'yes', NULL, 'few', 'Sparse', null, NULL, 'welcome', NULL, NULL, 'Cafe and flower shop with great natural light and matcha. Seats fill fast — come early and don''t count on plugs.', null, NULL, NULL, 'guide'),
+('heyma', 'Heyma', 'SoMa', '248 9th St', 37.7742325, -122.4124866, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'SoMa hideout with booths, window stools, and an L-shaped couch around an indoor fountain. Yemeni coffee and milk cake.', null, NULL, NULL, 'guide'),
+('alma', 'Cafe Alma', 'Bayview', '888 Innes Ave', 37.7320489, -122.3753806, 'yes', NULL, NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Giant warehouse cafe with rotating art, plush couches, and long tables made for group sessions. Waterfront park next door.', null, NULL, NULL, 'guide'),
+('reveille-steiner', 'Cafe Réveille', 'Lower Haight', '201 Steiner St', 37.7710569, -122.432071, 'weekdays', 'Off on weekends and holidays', NULL, NULL, null, NULL, 'welcome', NULL, NULL, 'Minimalist white room packed with people working over lattes and matcha. Note the wifi goes dark on weekends.', null, NULL, NULL, 'guide'),
+('spro', 'SPRO', 'Mission', '500 Church St', 37.762776, -122.4286683, 'yes', NULL, 'some', 'Some for recharging', null, NULL, 'welcome', NULL, NULL, 'Creative-drink mini-chain with a sunny sidewalk patio and floor-to-ceiling windows. Good sunny-day deadline spot.', null, NULL, NULL, 'guide');

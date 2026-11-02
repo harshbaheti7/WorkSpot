@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CAFES, cafeById } from "@/data/cafes";
+import { getCafeById, getCafes } from "@/lib/db";
 import { scoreLabel, workScore } from "@/lib/workscore";
 import DetailMap from "@/components/DetailMap";
 
-export function generateStaticParams() {
-  return CAFES.map((c) => ({ id: c.id }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const cafes = await getCafes();
+  return cafes.map((c) => ({ id: c.id }));
 }
 
 function row(label: string, value: string, note: string | null) {
@@ -28,7 +31,7 @@ export default async function CafePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const cafe = cafeById(id);
+  const cafe = await getCafeById(id);
   if (!cafe) notFound();
   const score = workScore(cafe);
 

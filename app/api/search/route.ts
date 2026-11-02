@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CAFES } from "@/data/cafes";
+import { getCafes } from "@/lib/db";
 import {
   applyFilters,
   parseQueryLocal,
@@ -61,7 +61,8 @@ export async function POST(req: Request) {
     }
   }
 
-  const results = applyFilters(CAFES, filters)
+  const cafes = await getCafes();
+  const results = applyFilters(cafes, filters)
     .map((c) => ({ ...c, score: workScore(c) }))
     .sort((a, b) => b.score - a.score);
 

@@ -70,7 +70,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Lively surf-diner buzz",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: "Closes 5pm",
+    hoursNote: "Daily 7AM–5PM",
     summary:
       "Laid-back surf institution with tons of seating, a full menu, and beer on tap. Easy to settle in for a long session near the ocean.",
     rating: null,
@@ -139,7 +139,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Cozy and focused",
     laptop: "welcome",
     laptopNote: "Everyone here is working",
-    hoursNote: null,
+    hoursNote: "Daily 7AM–5PM",
     summary:
       "Tiny family-run room where seemingly every table is deep in work. Great focus energy if your battery can last the session.",
     rating: null,
@@ -162,7 +162,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Always busy, pretty loud",
     laptop: "limited",
     laptopNote: "Eat, work a bit, move on",
-    hoursNote: null,
+    hoursNote: "Mon–Fri 7AM–5PM, Sat–Sun 8AM–5PM",
     summary:
       "Beloved brunchy staple with standout baked goods. Better for a working bite than an all-day office — it stays loud and crowded.",
     rating: null,
@@ -185,7 +185,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Snug and calm",
     laptop: "welcome",
     laptopNote: "Good for a session, not all day",
-    hoursNote: null,
+    hoursNote: "Mon–Fri 7AM–3PM, Sat–Sun 8AM–3PM",
     summary:
       "Charming Japanese-inspired bakery with hojicha lattes and laptop-friendly little tables. Lovely for a focused couple of hours.",
     rating: null,
@@ -208,7 +208,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "limited",
     laptopNote: "No devices on weekends",
-    hoursNote: null,
+    hoursNote: "Daily 7AM–5PM",
     summary:
       "Ocean-view stunner with top-tier coffee and surf-shop charm. Come to think and read — not to get online.",
     rating: null,
@@ -231,7 +231,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "limited",
     laptopNote: "Laptop-free tables marked",
-    hoursNote: null,
+    hoursNote: "Daily 7AM–5PM",
     summary:
       "Gorgeous bread-and-coffee hall that openly asks laptop campers to keep it short. Fine charged-up for one focused block.",
     rating: null,
@@ -254,7 +254,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Busy communal tables",
     laptop: "welcome",
     laptopNote: "People tether here",
-    hoursNote: null,
+    hoursNote: "Mon–Fri 6:30AM–5PM, Sat–Sun 7AM–5PM",
     summary:
       "Famous roastery with supremely comfy booth seating and zero WiFi anywhere. A tethering-and-headphones kind of work spot.",
     rating: null,
@@ -277,7 +277,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Bar energy after 5pm",
     laptop: "limited",
     laptopNote: "No laptops past 5pm",
-    hoursNote: "Laptops until 5pm only",
+    hoursNote: "Mon 5PM–10PM, Tue–Wed 1PM–10PM, Thu 1PM–10:30PM, Fri–Sat 1PM–11PM, Sun 1PM–10PM",
     summary:
       "Coffee by day, pub with a DJ by night. A genuinely fun pre-5pm work session with bar food — then the laptops close.",
     rating: null,
@@ -300,7 +300,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Roastery hum, high ceilings",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–6PM",
     summary:
       "Family-run roastery across from the park with warehouse charm and a hidden back patio. Great coffee, bring a full battery.",
     rating: null,
@@ -323,7 +323,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–6PM",
     summary:
       "Beautifully designed modern room with house-made nut milks. No outlets — arrive fully charged.",
     rating: null,
@@ -346,7 +346,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: null,
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 9AM–5PM, Sat–Sun 10AM–5PM",
     summary:
       "From the owner's saved list. Work details not researched yet — check back soon.",
     rating: 4.3,
@@ -369,7 +369,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: "Built for long stays",
-    hoursNote: null,
+    hoursNote: "Mon–Fri 6:30AM–6PM, Sat–Sun 7AM–6PM",
     summary:
       "Bernal Heights staple with a spacious patio, plenty of indoor tables, and food and drink for a full camp-out.",
     rating: 4.5,
@@ -392,7 +392,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: null,
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–10PM",
     summary:
       "From the owner's saved list. Work details not researched yet — check back soon.",
     rating: 4.9,
@@ -415,7 +415,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Wed–Sun 10AM–3PM, Mon–Tue closed",
     summary:
       "Two-level Korean cafe with minimalist design, matcha alongside espresso. Plenty of room to settle in with a laptop.",
     rating: null,
@@ -438,7 +438,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Low-key, read-and-relax room",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 7AM–4:30PM, Sat 7:30AM–4:30PM, Sun 8AM–4:30PM",
     summary:
       "Huge low-key room with worn-in couches, endless tables, and a muraled back garden. Easy to disappear into work here.",
     rating: null,
@@ -484,7 +484,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Relaxed beach-town pace",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Thu 8AM–5PM, Fri–Sun 8AM–6PM",
     summary:
       "A block from the ocean with strong natural light, bar and table seating, plus a non-alcoholic bottle shop and mocktails.",
     rating: null,
@@ -530,7 +530,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 8AM–4PM, Sat–Sun 8:30AM–5PM",
     summary:
       "Plant-filled corner shop with roomy sun-lit seating, shakes, and sandwiches. A cheerful place to post up.",
     rating: null,
@@ -576,7 +576,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: "Open till 11pm",
+    hoursNote: "Mon–Thu 6AM–11PM, Fri–Sat 7AM–12AM, Sun 7AM–11PM",
     summary:
       "Yemeni coffee shop known for spiced lattes and milk cake. Rare late hours make it a night-owl option.",
     rating: null,
@@ -599,7 +599,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Thu 9AM–4:30PM, Fri–Sat 10AM–9PM, Sun 10AM–4:30PM",
     summary:
       "Breakfast-and-lunch spot with tons of tables and a big menu spanning toast to nachos. No outlets — plan ahead.",
     rating: null,
@@ -622,7 +622,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Quiet and airy",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Opens 7:30AM daily; close varies (5–6PM)",
     summary:
       "Quiet, airy West Portal cafe with ube and calamansi drinks, a sun-filled patio, and a back room overlooking a garden.",
     rating: null,
@@ -645,7 +645,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Tue–Sun 6:30AM–4:30PM, Mon closed",
     summary:
       "Huge light-flooded Nob Hill room with widely spread tables. Space to breathe while you work.",
     rating: null,
@@ -668,7 +668,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–5PM",
     summary:
       "Sunny French-style corner bistro with a big communal table, covered patio, and beer and wine later in the day.",
     rating: null,
@@ -691,7 +691,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–5PM",
     summary:
       "Castro location with couches, big group tables, and top-tier coffee. Full-day friendly if you snag the one plug.",
     rating: null,
@@ -714,7 +714,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 7:30AM–4PM, Sat–Sun 8AM–4PM",
     summary:
       "Outer Sunset shop with playful specialty lattes, good wifi, and plenty of spacious tables for typing away.",
     rating: null,
@@ -737,7 +737,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Spread-out, private seats",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 6:30AM–2PM",
     summary:
       "Marina roastery with spread-out seats and a quick-coffee regular crowd. Good pick for deadline work in relative privacy.",
     rating: null,
@@ -760,7 +760,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Relaxed",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Wed 7:30AM–3PM, Thu 7:30AM–9PM, Fri 7:30AM–4PM, Sat 8AM–4PM, Sun 8AM–3PM",
     summary:
       "Bright unpretentious Hayes Valley room with baked scones that sell out. Relaxing, but charge up first — plugs are scarce.",
     rating: null,
@@ -783,7 +783,7 @@ export const CAFES: Cafe[] = [
     noiseNote: "Cozy living-room feel",
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–7PM",
     summary:
       "Eclectic living-room-style Richmond spot with art, bookshelves, and sandwiches. All-day friendly; wifi costs $1/hour.",
     rating: null,
@@ -806,7 +806,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 7AM–5PM, Sat 7:30AM–5PM, Sun 8AM–5PM",
     summary:
       "Cheerful cafe across from the Duboce dog park with a beloved house salad. No plugs, so watch your battery.",
     rating: null,
@@ -829,7 +829,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 7AM–6PM, Sat 8AM–6PM, Sun 8AM–4PM",
     summary:
       "Big unfussy Mission room with a back patio and a menu stretching from coffee to beer and wine.",
     rating: null,
@@ -852,7 +852,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "limited",
     laptopNote: "Allowed, but analog fits better",
-    hoursNote: "Open till 10pm",
+    hoursNote: "Daily 7AM–10PM",
     summary:
       "Historic cash-only espresso house packed with newspaper readers and journalers. Laptops allowed but analog fits the room better.",
     rating: null,
@@ -875,7 +875,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Fri 8AM–4PM, Sat–Sun closed",
     summary:
       "Free two-floor coworking-style cafe inside the Southeast Community Center with Egyptian and North African dishes.",
     rating: null,
@@ -898,7 +898,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–6PM",
     summary:
       "Cafe and flower shop with great natural light and matcha. Seats fill fast — come early and don't count on plugs.",
     rating: null,
@@ -921,7 +921,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Sun–Thu 7AM–11:30PM, Fri–Sat 7AM–12AM",
     summary:
       "SoMa hideout with booths, window stools, and an L-shaped couch around an indoor fountain. Yemeni coffee and milk cake.",
     rating: null,
@@ -944,7 +944,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Tue–Sat 8AM–2PM, Sun–Mon closed",
     summary:
       "Giant warehouse cafe with rotating art, plush couches, and long tables made for group sessions. Waterfront park next door.",
     rating: null,
@@ -967,7 +967,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Daily 7AM–7:30PM",
     summary:
       "Minimalist white room packed with people working over lattes and matcha. Note the wifi goes dark on weekends.",
     rating: null,
@@ -990,7 +990,7 @@ export const CAFES: Cafe[] = [
     noiseNote: null,
     laptop: "welcome",
     laptopNote: null,
-    hoursNote: null,
+    hoursNote: "Mon–Thu 7AM–3PM, Fri–Sun 7AM–5PM",
     summary:
       "Creative-drink mini-chain with a sunny sidewalk patio and floor-to-ceiling windows. Good sunny-day deadline spot.",
     rating: null,
