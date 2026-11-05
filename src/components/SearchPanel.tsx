@@ -3,9 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { NEIGHBORHOODS } from "@/data/cafes";
-import { applyFilters, type CafeFilters } from "@/lib/workscore";
+import {
+  applyFilters,
+  fmtTime,
+  sfNow,
+  WEEKDAY_NAMES,
+  type CafeFilters,
+} from "@/lib/workscore";
 import CafeCard, { type CafeWithScore } from "./CafeCard";
 import NeighborhoodDropdown from "./NeighborhoodDropdown";
+import TimeRangeSlider from "./TimeRangeSlider";
 
 const MapView = dynamic(() => import("./MapView"), {
   ssr: false,
@@ -33,6 +40,7 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
   const [mode, setMode] = useState<"ai" | "local">("local");
   const [searching, setSearching] = useState(false);
   const [aiOn, setAiOn] = useState<boolean | null>(null);
+  const [openNow, setOpenNow] = useState(false);
 
   useEffect(() => {
     fetch("/api/status")
@@ -63,6 +71,27 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
     setChips((c) => ({ ...c, [key]: c[key] ? undefined : true }));
   }
 
+  function toggleOpenNow() {
+    if (openNow) {
+      setOpenNow(false);
+      setChips((c) => ({
+        ...c,
+        day: undefined,
+        timeFrom: undefined,
+        timeTo: undefined,
+      }));
+    } else {
+      const now = sfNow();
+      setOpenNow(true);
+      setChips((c) => ({
+        ...c,
+        day: now.day,
+        timeFrom: now.timeMin,
+        timeTo: now.timeMin,
+      }));
+    }
+  }
+
   async function onSearch(e: React.FormEvent) {
     e.preventDefault();
     setSearching(true);
@@ -83,6 +112,17 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
       setSearching(false);
     }
   }
+
+  const timeSuffix =
+    chips.timeFrom !== undefined && chips.timeTo !== undefined
+      ? chips.timeFrom === chips.timeTo
+        ? ` ${fmtTime(chips.timeFrom)}`
+        : ` ${fmtTime(chips.timeFrom)}–${fmtTime(chips.timeTo)}`
+      : chips.timeFrom !== undefined
+        ? ` opens by ${fmtTime(chips.timeFrom)}`
+        : chips.timeTo !== undefined
+          ? ` till ${fmtTime(chips.timeTo)}`
+          : "";
 
   const chip = (active: boolean) =>
     `rounded-full border px-4 py-1.5 text-[13px] transition-colors ${
@@ -153,6 +193,37 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
             setChips((c) => ({ ...c, neighborhood: v || undefined }))
           }
         />
+        <button
+          type="button"
+          onClick={toggleOpenNow}
+          className={chip(openNow)}
+        >
+          Open now
+        </button>
+        <NeighborhoodDropdown
+          options={WEEKDAY_NAMES}
+          value={chips.day !== undefined ? WEEKDAY_NAMES[chips.day] : ""}
+          placeholder="Any day"
+          onChange={(v) => {
+            setOpenNow(false);
+            setChips((c) => ({
+              ...c,
+              day: v ? WEEKDAY_NAMES.indexOf(v) : undefined,
+            }));
+          }}
+        />
+        <TimeRangeSlider
+          from={chips.timeFrom ?? null}
+          to={chips.timeTo ?? null}
+          onChange={(from, to) => {
+            setOpenNow(false);
+            setChips((c) => ({
+              ...c,
+              timeFrom: from ?? undefined,
+              timeTo: to ?? undefined,
+            }));
+          }}
+        />
         {aiOn !== null && (
           <span
             className={`ml-auto font-mono text-xs tracking-widest uppercase ${
@@ -164,12 +235,23 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
         )}
       </div>
 
-      <p className="mt-4 text-sm text-muted">
-        {explanation}{" "}
-        <span className="text-faint">
-          {mode === "ai" ? "· matched by AI" : "· matched locally"}
-        </span>
-      </p>
+      <div className="mt-4 flex flex-wrap items-baseline justify-between gap-2">
+        <p className="text-sm text-muted">
+          {explanation}{" "}
+          <span className="text-faint">
+            {mode === "ai" ? "· matched by AI" : "· matched locally"}
+            {chips.day !== undefined
+              ? ` · ${WEEKDAY_NAMES[chips.day]}`
+              : ""}
+            {timeSuffix ? ` ·${timeSuffix}` : ""}
+          </span>
+        </p>
+        {visible.length < initial.length ? (
+          <p className="shrink-0 font-mono text-xs tracking-widest text-brand uppercase">
+            {visible.length} of {initial.length} spots
+          </p>
+        ) : null}
+      </div>
 
       <div className="mt-4 flex flex-col-reverse gap-6 lg:flex-row">
         <div className="grid min-w-0 flex-1 content-start gap-4 sm:grid-cols-2">

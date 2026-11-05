@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCafeById, getCafes } from "@/lib/db";
-import { scoreLabel, workScore } from "@/lib/workscore";
+import {
+  fmtTime,
+  scoreLabel,
+  WEEKDAY_NAMES,
+  workScore,
+} from "@/lib/workscore";
 import DetailMap from "@/components/DetailMap";
 
 export const revalidate = 60;
@@ -110,6 +115,16 @@ export default async function CafePage({
           {cafe.userNote}
         </p>
       ) : null}
+      {cafe.mapsUrl ? (
+        <a
+          href={cafe.mapsUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-block rounded-full bg-brand px-5 py-2 text-sm font-medium text-canvas transition-colors hover:bg-brand-hover"
+        >
+          Open in Google Maps →
+        </a>
+      ) : null}
 
       <dl className="mt-6 max-w-2xl rounded-2xl border border-white/10 bg-surface px-5 py-2">
         {row("WiFi", wifi, cafe.wifiNote)}
@@ -118,6 +133,39 @@ export default async function CafePage({
         {row("Laptops", laptop, cafe.laptopNote)}
         {row("Hours", cafe.hoursNote ?? "Unknown", null)}
       </dl>
+
+      {cafe.hours && cafe.hours.length > 0 ? (
+        <div className="mt-6 max-w-2xl">
+          <h2 className="font-mono text-xs tracking-widest text-faint uppercase">
+            Weekly hours
+          </h2>
+          <dl className="mt-2 rounded-2xl border border-white/10 bg-surface px-5 py-2">
+            {[1, 2, 3, 4, 5, 6, 0].map((d) => {
+              const rows = (cafe.hours ?? []).filter(
+                (h) => h.weekday === d
+              );
+              return (
+                <div
+                  key={d}
+                  className="flex items-baseline justify-between border-b border-white/10 py-2 last:border-0"
+                >
+                  <dt className="text-sm text-muted">{WEEKDAY_NAMES[d]}</dt>
+                  <dd className="text-[15px] text-ink">
+                    {rows.length === 0
+                      ? "Closed"
+                      : rows
+                          .map(
+                            (r) =>
+                              `${fmtTime(r.opensMin)}–${fmtTime(r.closesMin)}`
+                          )
+                          .join(", ")}
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </div>
+      ) : null}
 
       {cafe.lat !== null && cafe.lng !== null ? (
         <div className="mt-6 h-[320px] max-w-2xl overflow-hidden rounded-2xl border border-white/10">

@@ -26,6 +26,30 @@ function sanitizeFilters(raw: unknown): CafeFilters {
   if (typeof r.neighborhood === "string" && r.neighborhood.length <= 60) {
     f.neighborhood = r.neighborhood;
   }
+  if (
+    typeof r.day === "number" &&
+    Number.isInteger(r.day) &&
+    r.day >= 0 &&
+    r.day <= 6
+  ) {
+    f.day = r.day;
+  }
+  if (
+    typeof r.timeFrom === "number" &&
+    Number.isInteger(r.timeFrom) &&
+    r.timeFrom >= 0 &&
+    r.timeFrom < 1440
+  ) {
+    f.timeFrom = r.timeFrom;
+  }
+  if (
+    typeof r.timeTo === "number" &&
+    Number.isInteger(r.timeTo) &&
+    r.timeTo >= 0 &&
+    r.timeTo <= 1440
+  ) {
+    f.timeTo = r.timeTo;
+  }
   return f;
 }
 

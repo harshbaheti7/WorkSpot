@@ -6,12 +6,14 @@ interface Props {
   options: string[];
   value: string;
   onChange: (v: string) => void;
+  placeholder?: string;
 }
 
 export default function NeighborhoodDropdown({
   options,
   value,
   onChange,
+  placeholder = "All neighborhoods",
 }: Props) {
   const ref = useRef<HTMLDetailsElement>(null);
 
@@ -26,14 +28,14 @@ export default function NeighborhoodDropdown({
   return (
     <details ref={ref} className="group relative">
       <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-muted transition-colors hover:border-white/40 hover:text-ink [&::-webkit-details-marker]:hidden">
-        {value || "All neighborhoods"}
+        {value || placeholder}
         <span className="text-[10px] transition-transform group-open:rotate-180">
           ▾
         </span>
       </summary>
       <div className="absolute left-0 z-20 mt-2 max-h-64 w-60 overflow-auto rounded-xl border border-white/10 bg-raised shadow-xl">
         <button type="button" onClick={() => pick("")} className={item}>
-          All neighborhoods{" "}
+          {placeholder}{" "}
           {value === "" ? <span className="text-brand">✓</span> : null}
         </button>
         {options.map((n) => (

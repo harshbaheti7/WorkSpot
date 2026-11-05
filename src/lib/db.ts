@@ -1,5 +1,6 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { CAFES, type Cafe } from "@/data/cafes";
+import { CAFES, type Cafe, type HourRow } from "@/data/cafes";
+import HOURS_JSON from "@/data/hours.json";
 
 let client: SupabaseClient | null = null;
 
@@ -16,6 +17,7 @@ interface CafeRow {
   name: string;
   neighborhood: string;
   address: string | null;
+  maps_url: string | null;
   lat: number | null;
   lng: number | null;
   wifi: string | null;
@@ -34,12 +36,20 @@ interface CafeRow {
   source: string;
 }
 
+interface HoursRow {
+  cafe_id: string;
+  weekday: number;
+  opens_min: number;
+  closes_min: number;
+}
+
 function toCafe(r: CafeRow): Cafe {
   return {
     id: r.id,
     name: r.name,
     neighborhood: r.neighborhood,
     address: r.address,
+    mapsUrl: r.maps_url,
     lat: r.lat,
     lng: r.lng,
     wifi: (r.wifi as Cafe["wifi"]) ?? null,
@@ -59,30 +69,76 @@ function toCafe(r: CafeRow): Cafe {
   };
 }
 
+/** Seed fallback hours from the bundled map (same source as migration 0002). */
+function fallbackHours(id: string): HourRow[] {
+  const rows = (HOURS_JSON as unknown as Record<string, unknown>)[id];
+  if (!Array.isArray(rows)) return [];
+  return (
+    rows as Array<[number, number, number]>
+  ).map(([weekday, opensMin, closesMin]) => ({
+    weekday,
+    opensMin,
+    closesMin,
+  }));
+}
+
+function withFallback(list: Cafe[]): Cafe[] {
+  return list.map((c) => ({ ...c, hours: fallbackHours(c.id) }));
+}
+
 /**
  * All cafes, Supabase-first with seed fallback.
- * Falls back when env is missing, the table isn't migrated yet, or reads fail.
+ * Falls back when env is missing, tables aren't migrated yet, or reads fail.
  */
 export async function getCafes(): Promise<Cafe[]> {
   const sb = getClient();
-  if (!sb) return CAFES;
-  const { data, error } = await sb.from("cafes").select("*");
-  if (error || !data) return CAFES;
-  try {
-    return (data as CafeRow[]).map(toCafe);
-  } catch {
-    return CAFES;
+  if (!sb) return withFallback(CAFES);
+  const [cafesRes, hoursRes] = await Promise.all([
+    sb.from("cafes").select("*"),
+    sb.from("cafe_hours").select("*"),
+  ]);
+  if (cafesRes.error || !cafesRes.data) return withFallback(CAFES);
+  const byCafe = new Map<string, HourRow[]>();
+  if (!hoursRes.error && hoursRes.data) {
+    for (const h of hoursRes.data as HoursRow[]) {
+      const list = byCafe.get(h.cafe_id) ?? [];
+      list.push({
+        weekday: h.weekday,
+        opensMin: h.opens_min,
+        closesMin: h.closes_min,
+      });
+      byCafe.set(h.cafe_id, list);
+    }
   }
+  return (cafesRes.data as CafeRow[]).map((r) => ({
+    ...toCafe(r),
+    hours: byCafe.get(r.id) ?? fallbackHours(r.id),
+  }));
 }
 
 export async function getCafeById(id: string): Promise<Cafe | undefined> {
   const sb = getClient();
-  if (!sb) return CAFES.find((c) => c.id === id);
-  const { data, error } = await sb.from("cafes").select("*").eq("id", id).single();
-  if (error || !data) return CAFES.find((c) => c.id === id);
-  try {
-    return toCafe(data as CafeRow);
-  } catch {
-    return undefined;
+  if (!sb) {
+    const c = CAFES.find((c) => c.id === id);
+    return c ? { ...c, hours: fallbackHours(id) } : undefined;
   }
+  const [cafesRes, hoursRes] = await Promise.all([
+    sb.from("cafes").select("*").eq("id", id).single(),
+    sb.from("cafe_hours").select("*").eq("cafe_id", id),
+  ]);
+  if (cafesRes.error || !cafesRes.data) {
+    const c = CAFES.find((c) => c.id === id);
+    return c ? { ...c, hours: fallbackHours(id) } : undefined;
+  }
+  const cafe = toCafe(cafesRes.data as CafeRow);
+  if (!hoursRes.error && hoursRes.data) {
+    cafe.hours = (hoursRes.data as HoursRow[]).map((h) => ({
+      weekday: h.weekday,
+      opensMin: h.opens_min,
+      closesMin: h.closes_min,
+    }));
+  } else {
+    cafe.hours = fallbackHours(id);
+  }
+  return cafe;
 }
