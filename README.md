@@ -2,6 +2,8 @@
 
 Find a café to get work done. WorkSpot scores San Francisco cafés on the four things that matter when you work from one — **WiFi, outlets, noise level, and laptop policy** — and lets you search in plain language.
 
+**Live demo:** https://workspot-gules.vercel.app/
+
 ## Features
 
 - **Plain-language search** — "quiet spot with outlets in the Mission", "open Sunday 9 to 5", "open till 10pm"
