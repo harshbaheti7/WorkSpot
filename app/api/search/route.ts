@@ -7,6 +7,7 @@ import {
   type CafeFilters,
 } from "@/lib/workscore";
 import { aiEnabled, parseQueryAi } from "@/lib/anthropic";
+import { llamaEnabled, parseQueryLlama } from "@/lib/llama";
 
 interface SearchBody {
   query?: unknown;
@@ -64,21 +65,33 @@ export async function POST(req: Request) {
 
   let filters: CafeFilters = {};
   let explanation = "Showing all spots.";
-  let mode: "ai" | "local" = "local";
+  let mode: "llama" | "Muse" | "local" = "local";
 
   if (query.trim()) {
-    if (aiEnabled()) {
+    let done = false;
+    if (llamaEnabled()) {
+      try {
+        const ai = await parseQueryLlama(query);
+        filters = ai.filters;
+        explanation = ai.explanation;
+        mode = "llama";
+        done = true;
+      } catch {
+        // fall through to the next engine
+      }
+    }
+    if (!done && aiEnabled()) {
       try {
         const ai = await parseQueryAi(query);
         filters = ai.filters;
         explanation = ai.explanation;
-        mode = "ai";
+        mode = "Muse";
+        done = true;
       } catch {
-        const local = parseQueryLocal(query);
-        filters = sanitizeFilters(local.filters);
-        explanation = local.explanation;
+        // fall through to local rules
       }
-    } else {
+    }
+    if (!done) {
       const local = parseQueryLocal(query);
       filters = sanitizeFilters(local.filters);
       explanation = local.explanation;

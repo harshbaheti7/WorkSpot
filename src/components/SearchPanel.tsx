@@ -24,7 +24,7 @@ const MapView = dynamic(() => import("./MapView"), {
 });
 
 interface SearchResponse {
-  mode: "ai" | "local";
+  mode: "llama" | "Muse" | "local";
   explanation: string;
   filters: CafeFilters;
   results: CafeWithScore[];
@@ -37,16 +37,18 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
   const [explanation, setExplanation] = useState(
     `${initial.length} spots in San Francisco, best first.`
   );
-  const [mode, setMode] = useState<"ai" | "local">("local");
+  const [mode, setMode] = useState<"llama" | "Muse" | "local">("local");
   const [searching, setSearching] = useState(false);
-  const [aiOn, setAiOn] = useState<boolean | null>(null);
+  const [engine, setEngine] = useState<string | null>(null);
   const [openNow, setOpenNow] = useState(false);
 
   useEffect(() => {
     fetch("/api/status")
       .then((r) => r.json())
-      .then((j: { ai?: unknown }) => setAiOn(j.ai === true))
-      .catch(() => setAiOn(false));
+      .then((j: { engine?: unknown }) =>
+        setEngine(typeof j.engine === "string" ? j.engine : "local")
+      )
+      .catch(() => setEngine("local"));
   }, []);
 
   const visible = useMemo(
@@ -224,13 +226,17 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
             }));
           }}
         />
-        {aiOn !== null && (
+        {engine !== null && (
           <span
             className={`ml-auto font-mono text-xs tracking-widest uppercase ${
-              aiOn ? "text-accent2" : "text-faint"
+              engine !== "local" ? "text-accent2" : "text-faint"
             }`}
           >
-            {aiOn ? "● AI search" : "○ Local search"}
+            {engine === "llama"
+              ? "● AI · Llama"
+              : engine === "Muse"
+                ? "● AI · Muse"
+                : "○ Local search"}
           </span>
         )}
       </div>
@@ -239,7 +245,11 @@ export default function SearchPanel({ initial }: { initial: CafeWithScore[] }) {
         <p className="text-sm text-muted">
           {explanation}{" "}
           <span className="text-faint">
-            {mode === "ai" ? "· matched by AI" : "· matched locally"}
+            {mode === "llama"
+            ? "· matched by Llama"
+            : mode === "Muse"
+              ? "· matched by Muse"
+              : "· matched locally"}
             {chips.day !== undefined
               ? ` · ${WEEKDAY_NAMES[chips.day]}`
               : ""}

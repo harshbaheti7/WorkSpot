@@ -8,11 +8,11 @@ Find a café to get work done. WorkSpot scores San Francisco cafés on the four 
 - **Work scores (0–100)** for every café, with the facts behind each score
 - **Filters** — WiFi, outlets, quiet, laptop-friendly, neighborhood, day, and an hours range slider ("Opens by" / "Closes after"), plus an "Open now" toggle
 - **44 SF cafés** with map pins, weekly hours tables, and Google Maps links
-- **AI search** (optional) — Muse parses queries when `ANTHROPIC_API_KEY` is set, with keyword fallback otherwise
+- **AI search** (optional) — Llama (via Groq) parses queries when `GROQ_API_KEY` is set, falling back to Muse then keyword rules
 
 ## Tech stack
 
-Next.js (App Router) · TypeScript · Tailwind CSS · Supabase (Postgres) · Leaflet + OpenStreetMap · Anthropic Muse (optional) · Radix UI
+Next.js (App Router) · TypeScript · Tailwind CSS · Supabase (Postgres) · Leaflet + OpenStreetMap · Llama via Groq + Anthropic Muse (optional AI) · Radix UI
 
 ## Getting started
 
@@ -33,7 +33,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project API URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Yes | Supabase publishable key (read-only access) |
 | `SUPABASE_SECRET_KEY` | No | Server-side key; only needed for admin scripts |
-| `ANTHROPIC_API_KEY` | No | Enables AI search; app works without it (local match) |
+| `GROQ_API_KEY` | No | Enables Llama AI search (first choice) |
+| `GROQ_MODEL` | No | Override (default `llama-3.3-70b-versatile`) |
+| `ANTHROPIC_API_KEY` | No | Enables Muse AI search (second choice); app works without either (local match) |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | No | Inbox for the feedback + contact forms |
 
 ### Database
