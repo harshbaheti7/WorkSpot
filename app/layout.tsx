@@ -45,9 +45,6 @@ export default function RootLayout({
             </div>
             <div className="flex items-center gap-3">
               <CitySelector />
-              <p className="font-mono text-xs tracking-widest text-faint uppercase">
-                v1
-              </p>
             </div>
           </div>
         </header>

@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <div>
       <p className="font-mono text-xs tracking-widest text-brand uppercase">
-        {cafes.length} spots · San Francisco
+        San Francisco · {cafes.length} spots
       </p>
       <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted">
         WiFi, outlets, noise, and laptop policies — search in plain language
