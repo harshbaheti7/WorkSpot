@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getCafes } from "@/lib/db";
 import {
   applyFilters,
+  matchCafesByName,
   parseQueryLocal,
   workScore,
   type CafeFilters,
@@ -99,7 +100,20 @@ export async function POST(req: Request) {
   }
 
   const cafes = await getCafes();
-  const results = applyFilters(cafes, filters)
+  const q = query.trim();
+  const named = q ? matchCafesByName(cafes, q) : [];
+  // A name hit already disambiguates place: ignore the neighborhood filter
+  // so a street word in the name ("Jane on Fillmore") can't zero results.
+  const { neighborhood: _hood, ...restFilters } = filters;
+  const effective = named.length > 0 ? restFilters : filters;
+  if (named.length > 0) {
+    const quoted = `"${q.slice(0, 60)}"`;
+    explanation =
+      Object.keys(effective).length > 0
+        ? `Matches for ${quoted} — ${explanation.charAt(0).toLowerCase()}${explanation.slice(1)}`
+        : `Matches for ${quoted}.`;
+  }
+  const results = applyFilters(named.length > 0 ? named : cafes, effective)
     .map((c) => ({ ...c, score: workScore(c) }))
     .sort((a, b) => b.score - a.score);
 

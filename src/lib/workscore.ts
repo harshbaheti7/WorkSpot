@@ -356,3 +356,76 @@ export function parseQueryLocal(query: string): {
       : "Showing all spots (local match).";
   return { filters, explanation };
 }
+
+/** Lowercase, punctuation to spaces — for name matching. */
+function normName(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Name words that must never narrow a search on their own: they appear in
+ * ordinary filter queries ("the", "new", "soma", "study", ...) as often as
+ * in café names. Other query tokens can still match (e.g. "soma" still
+ * filters by neighborhood, "bluestone soma" still narrows by "bluestone").
+ */
+const NAME_STOPWORDS = new Set([
+  "the",
+  "new",
+  "home",
+  "soma",
+  "marina",
+  "study",
+  "coffee",
+  "cafe",
+  "caffe",
+  "caf",
+  "espresso",
+  "roasters",
+  "roastery",
+  "house",
+]);
+
+/**
+ * Token score against a name word: 2 for exact, 1 for a 4+ char substring
+ * ("sanaa"~"sana"), else 0. Exact beats substring, so "Bluestone" keeps the
+ * five branches and drops Blue Danube.
+ */
+function tokenWordScore(t: string, w: string): number {
+  if (t === w) return 2;
+  if (t.length >= 4 && w.length >= 4 && (t.includes(w) || w.includes(t)))
+    return 1;
+  return 0;
+}
+
+/**
+ * Cafés matching the most significant query tokens (3+ chars, stopwords
+ * dropped). "Bluestone" finds all branches, "Jane on Fillmore" finds one,
+ * "Bluestone open Sunday" narrows to branches (filters apply after).
+ * Returns [] when no token matches any name — the caller then searches
+ * the full list, so pure filter queries are unaffected.
+ */
+export function matchCafesByName<T extends Cafe>(
+  cafes: T[],
+  query: string
+): T[] {
+  const tokens = normName(query)
+    .split(" ")
+    .filter((t) => t.length >= 3 && !NAME_STOPWORDS.has(t));
+  if (tokens.length === 0) return [];
+  let best = 0;
+  const hits: { cafe: T; n: number }[] = cafes.map((c) => {
+    const words = normName(c.name).split(" ");
+    const n = tokens.reduce(
+      (sum, t) => sum + Math.max(0, ...words.map((w) => tokenWordScore(t, w))),
+      0
+    );
+    if (n > best) best = n;
+    return { cafe: c, n };
+  });
+  if (best === 0) return [];
+  return hits.filter((h) => h.n === best).map((h) => h.cafe);
+}
