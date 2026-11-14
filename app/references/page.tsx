@@ -12,6 +12,18 @@ const SOURCES = [
     used: "Addresses, WiFi status, outlet notes, and hours for 30 cafés.",
   },
   {
+    title: "Bluestone Lane (NYC, San Francisco, Orange County)",
+    publisher: "Aussie Coffee Guide",
+    url: "https://aussiecoffeeguide.com/cafe-bluestone-lane/",
+    used: "Branch addresses and hours for 5 Bluestone Lane cafés.",
+  },
+  {
+    title: "San Francisco laptop-friendly cafés",
+    publisher: "Cafe Nomad",
+    url: "https://www.cafe-nomad.com/en/san-francisco",
+    used: "Laptop-friendliness and WiFi facts for SF branches.",
+  },
+  {
     title: "OpenStreetMap + Nominatim",
     publisher: "OpenStreetMap contributors",
     url: "https://www.openstreetmap.org",

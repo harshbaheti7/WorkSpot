@@ -1,0 +1,41 @@
+-- WorkSpot: add Bluestone Lane SF branches (5 locations, Nov 2026).
+-- Hours corroborated across aggregators; 685 Market St / 225 Bush St omitted (stale, not on current official list).
+insert into cafes (id, name, neighborhood, address, maps_url, lat, lng, wifi, wifi_note, outlets, outlets_note, noise, noise_note, laptop, laptop_note, hours_note, summary, rating, price, user_note, source) values
+('bluestone-front', 'Bluestone Lane (Front St)', 'Financial District', '227 Front St', 'https://www.google.com/maps/search/?api=1&query=Bluestone+Lane+%28Front+St%29+227+Front+St+San+Francisco+CA', 37.7937621, -122.399072, 'yes', 'Free WiFi (~25 Mbps reported)', 'some', 'Outlets available; count unverified', NULL, NULL, 'welcome', 'Listed laptop-friendly; comfortable for long sessions', 'Mon & Fri 7AM–3PM, Tue–Thu 7AM–5PM, closed weekends', 'First West Coast outpost of the Australian coffee chain, in the FiDi. Free wifi and a laptop-friendly listing make it a solid weekday work stop; closes by 5pm and weekends are off.', NULL, NULL, NULL, 'guide'),
+('bluestone-soma', 'Bluestone Lane (SoMa)', 'SoMa', '55 2nd St', 'https://www.google.com/maps/search/?api=1&query=Bluestone+Lane+%28SoMa%29+55+2nd+St+San+Francisco+CA', 37.7888148, -122.400334, 'yes', 'Free WiFi (chain standard)', 'some', 'Outlets available; count unverified', NULL, NULL, NULL, NULL, 'Mon & Fri 7AM–3PM, Tue–Thu 7AM–5PM, closed weekends', 'SoMa shop on 2nd St. Weekday-only hours suit a workday coffee-and-laptop session; laptop setup unverified.', NULL, NULL, NULL, 'guide'),
+('bluestone-theatre', 'Bluestone Lane (Theatre District)', 'Nob Hill', '562 Sutter St', 'https://www.google.com/maps/search/?api=1&query=Bluestone+Lane+%28Theatre+District%29+562+Sutter+St+San+Francisco+CA', 37.7893015, -122.4098038, 'yes', 'Free WiFi (chain standard)', 'some', 'Outlets available; count unverified', NULL, NULL, 'welcome', 'Listed laptop-friendly; comfortable for long sessions', 'Daily 6AM–3PM', 'Inside the Hotel Emblem lobby at the edge of Nob Hill, open daily from 6AM. Listed laptop-friendly with comfortable seating for long sessions.', NULL, NULL, NULL, 'guide'),
+('bluestone-avery', 'Bluestone Lane (Avery)', 'Rincon Hill', '420 Folsom St', 'https://www.google.com/maps/search/?api=1&query=Bluestone+Lane+%28Avery%29+420+Folsom+St+San+Francisco+CA', 37.7878856, -122.3938839, 'yes', 'Free WiFi (chain standard)', 'some', 'Outlets available; count unverified', NULL, NULL, NULL, NULL, 'Daily 7AM–5PM', 'Rincon Hill outpost in the Avery Lane complex, open daily till 5pm. Weekday plus weekend coverage; laptop setup unverified.', NULL, NULL, NULL, 'guide'),
+('bluestone-steiner', 'Bluestone Lane (Marina)', 'Marina', '3352 Steiner St', 'https://www.google.com/maps/search/?api=1&query=Bluestone+Lane+%28Marina%29+3352+Steiner+St+San+Francisco+CA', 37.8004498, -122.4376347, 'yes', 'Free WiFi (chain standard)', 'some', 'Outlets available; count unverified', NULL, NULL, NULL, NULL, 'Mon–Fri 7AM–3PM, Sat–Sun 7AM–4PM', 'Marina District shop with weekend hours till 4pm. Good for a weekend work session; laptop setup unverified.', NULL, NULL, NULL, 'guide');
+
+insert into cafe_hours (cafe_id, weekday, opens_min, closes_min) values
+('bluestone-front', 1, 420, 900),
+('bluestone-front', 2, 420, 1020),
+('bluestone-front', 3, 420, 1020),
+('bluestone-front', 4, 420, 1020),
+('bluestone-front', 5, 420, 900),
+('bluestone-soma', 1, 420, 900),
+('bluestone-soma', 2, 420, 1020),
+('bluestone-soma', 3, 420, 1020),
+('bluestone-soma', 4, 420, 1020),
+('bluestone-soma', 5, 420, 900),
+('bluestone-theatre', 0, 360, 900),
+('bluestone-theatre', 1, 360, 900),
+('bluestone-theatre', 2, 360, 900),
+('bluestone-theatre', 3, 360, 900),
+('bluestone-theatre', 4, 360, 900),
+('bluestone-theatre', 5, 360, 900),
+('bluestone-theatre', 6, 360, 900),
+('bluestone-avery', 0, 420, 1020),
+('bluestone-avery', 1, 420, 1020),
+('bluestone-avery', 2, 420, 1020),
+('bluestone-avery', 3, 420, 1020),
+('bluestone-avery', 4, 420, 1020),
+('bluestone-avery', 5, 420, 1020),
+('bluestone-avery', 6, 420, 1020),
+('bluestone-steiner', 0, 420, 960),
+('bluestone-steiner', 1, 420, 900),
+('bluestone-steiner', 2, 420, 900),
+('bluestone-steiner', 3, 420, 900),
+('bluestone-steiner', 4, 420, 900),
+('bluestone-steiner', 5, 420, 900),
+('bluestone-steiner', 6, 420, 960);
