@@ -102,16 +102,23 @@ export function sfNow(): { day: number; timeMin: number } {
   };
 }
 
-/** True when open at all on day. Empty hours (unknown) counts as open. */
+/**
+ * True when open at all on day. Empty hours (unknown) counts as NOT open:
+ * a day/time filter must never claim a café is open when its hours are
+ * unverified. (Unknowns stay neutral for scoring and fact filters — this
+ * strictness is only about asserting a café is open at a given time.)
+ */
 export function isOpenDay(hours: HourRow[] | undefined, day: number): boolean {
-  if (!hours || hours.length === 0) return true;
+  if (!hours || hours.length === 0) return false;
   return hours.some((h) => h.weekday === day);
 }
 
 /**
  * True when open on `day` within the given bounds: opens at/before `from`
  * and closes at/after `to` (either may be undefined = unconstrained).
- * from === to is a point in time. Empty hours (unknown) counts as open.
+ * from === to is a point in time. Empty hours (unknown) counts as NOT open —
+ * see isOpenDay: unverified hours must not pass "open now" or any
+ * day/time filter.
  */
 export function matchesTimeBounds(
   hours: HourRow[] | undefined,
@@ -119,7 +126,7 @@ export function matchesTimeBounds(
   from?: number,
   to?: number
 ): boolean {
-  if (!hours || hours.length === 0) return true;
+  if (!hours || hours.length === 0) return false;
   const prev = (day + 6) % 7;
   const rows = hours.filter((h) => h.weekday === day);
   const prevOvernight = hours.filter(
