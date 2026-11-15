@@ -24,6 +24,12 @@ const SOURCES = [
     used: "Laptop-friendliness and WiFi facts for SF branches.",
   },
   {
+    title: "Visit us - SF",
+    publisher: "Elaichi Co.",
+    url: "https://www.elaichico.com/pages/visit-us-sf",
+    used: "Address and hours for the SoMa chai café.",
+  },
+  {
     title: "OpenStreetMap + Nominatim",
     publisher: "OpenStreetMap contributors",
     url: "https://www.openstreetmap.org",

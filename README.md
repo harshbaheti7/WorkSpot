@@ -9,7 +9,7 @@ Find a café to get work done. WorkSpot scores San Francisco cafés on the four 
 - **Plain-language search** — "quiet spot with outlets in the Mission", "open Sunday 9 to 5", "open till 10pm"
 - **Work scores (0–100)** for every café, with the facts behind each score
 - **Filters** — WiFi, outlets, quiet, laptop-friendly, neighborhood, day, and an hours range slider ("Opens by" / "Closes after"), plus an "Open now" toggle
-- **49 SF cafés** with map pins, weekly hours tables, and Google Maps links
+- **50 SF cafés** with map pins, weekly hours tables, and Google Maps links
 - **AI search** (optional) — Llama (via Groq) parses queries when `GROQ_API_KEY` is set, falling back to Muse then keyword rules
 
 ## Tech stack

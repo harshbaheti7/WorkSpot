@@ -1223,6 +1223,31 @@ export const CAFES: Cafe[] = [
     userNote: null,
     source: "guide",
   },
+  {
+    id: "elaichi-co",
+    name: "Elaichi Co.",
+    neighborhood: "SoMa",
+    address: "360 3rd St",
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Elaichi+Co.+360+3rd+St+San+Francisco+CA",
+    lat: 37.782697,
+    lng: -122.3983632,
+    wifi: null,
+    wifiNote: "WiFi unconfirmed — listed as free on Yelp but a reviewer reports none",
+    outlets: null,
+    outletsNote: null,
+    noise: 3,
+    noiseNote: "Buzzing, energetic room",
+    laptop: "welcome",
+    laptopNote: "Laptops common; communal work tables",
+    hoursNote: "Mon–Sat 8AM–9PM, Sun 8AM–7PM",
+    summary:
+      "Berkeley-born chai cafe's first SF outpost in SoMa, serving three chai drinks and pastries till 9pm most nights. Communal work tables fill with laptops, though seating is tight and WiFi is unconfirmed — come prepared.",
+    rating: null,
+    price: null,
+    userNote: null,
+    source: "guide",
+  },
 ];
 
 export const cafeById = (id: string): Cafe | undefined =>
