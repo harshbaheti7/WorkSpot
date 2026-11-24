@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Cafe } from "@/data/cafes";
 import { scoreLabel } from "@/lib/workscore";
+import FavoriteButton from "./FavoriteButton";
 
 export interface CafeWithScore extends Cafe {
   score: number;
@@ -70,14 +71,17 @@ export default function CafeCard({ cafe }: { cafe: CafeWithScore }) {
             {cafe.price ? ` · ${cafe.price}` : ""}
           </p>
         </div>
-        <p className="shrink-0 text-right">
-          <span className="font-display text-2xl font-semibold text-brand">
-            {cafe.score}
-          </span>
-          <span className="block text-xs text-faint">
-            {scoreLabel(cafe.score)}
-          </span>
-        </p>
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <FavoriteButton cafeId={cafe.id} />
+          <p className="text-right">
+            <span className="font-display text-2xl font-semibold text-brand">
+              {cafe.score}
+            </span>
+            <span className="block text-xs text-faint">
+              {scoreLabel(cafe.score)}
+            </span>
+          </p>
+        </div>
       </div>
       <p className="mt-3 text-[14px] leading-relaxed text-muted">
         {cafe.summary}

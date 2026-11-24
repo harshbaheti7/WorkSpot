@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
 import CitySelector from "@/components/CitySelector";
+import AuthButtons from "@/components/AuthButtons";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -43,8 +44,17 @@ export default function RootLayout({
                 Find a café to get work done.
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+              <nav className="flex items-center gap-4 pr-1 text-[14px]">
+                <Link href="/saved" className="text-muted hover:text-ink">
+                  Saved
+                </Link>
+                <Link href="/suggest" className="text-muted hover:text-ink">
+                  Suggest a café
+                </Link>
+              </nav>
               <CitySelector />
+              <AuthButtons />
             </div>
           </div>
         </header>

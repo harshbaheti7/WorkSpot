@@ -10,6 +10,8 @@ Find a café to get work done. WorkSpot scores San Francisco cafés on the four 
 - **Work scores (0–100)** for every café, with the facts behind each score
 - **Filters** — WiFi, outlets, quiet, laptop-friendly, neighborhood, day, and an hours range slider ("Opens by" / "Closes after"), plus an "Open now" toggle
 - **50 SF cafés** with map pins, weekly hours tables, and Google Maps links
+- **Accounts** (Supabase Auth) — log in, star favourite cafés, view them on `/saved`
+- **Suggest a café** — logged-in users submit spots; the owner reviews them on `/admin`
 - **AI search** (optional) — Llama (via Groq) parses queries when `GROQ_API_KEY` is set, falling back to Muse then keyword rules
 
 ## Tech stack
@@ -34,7 +36,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project API URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Yes | Supabase publishable key (read-only access) |
-| `SUPABASE_SECRET_KEY` | No | Server-side key; only needed for admin scripts |
+| `SUPABASE_SECRET_KEY` | No | Server-side key; required for the `/admin` suggestions list |
+| `ADMIN_EMAILS` | No | Comma-separated admin login emails for `/admin` |
 | `GROQ_API_KEY` | No | Enables Llama AI search (first choice) |
 | `GROQ_MODEL` | No | Override (default `llama-3.3-70b-versatile`) |
 | `ANTHROPIC_API_KEY` | No | Enables Muse AI search (second choice); app works without either (local match) |
@@ -48,12 +51,16 @@ Run the migrations in order in the Supabase dashboard → SQL Editor:
 2. `supabase/migrations/0002_cafe_hours.sql` — `cafe_hours` table (structured weekly hours)
 3. `supabase/migrations/0003_maps_url.sql` — Google Maps link per café
 4. `supabase/migrations/0004_sanaa.sql` — Sana'a Cafe branches
+5. `supabase/migrations/0005_bluestone.sql` — Bluestone Lane branches
+6. `supabase/migrations/0006_elaichi.sql` — Elaichi Co.
+7. `supabase/migrations/0007_favorites.sql` — `favorites` table (starred cafés)
+8. `supabase/migrations/0008_cafe_requests.sql` — `cafe_requests` table (user suggestions)
 
 The app reads Supabase-first with a bundled seed fallback (`src/data/`), so it builds and runs even before migrations are applied. Table edits in the dashboard appear on the site within ~60 seconds.
 
 ## Project layout
 
-- `app/` — pages (`/`, `/cafes/[id]`, `/about`, `/feedback`, `/contact`, `/references`) + `/api/search`, `/api/status`
+- `app/` — pages (`/`, `/cafes/[id]`, `/login`, `/saved`, `/suggest`, `/admin`, `/about`, `/feedback`, `/contact`, `/references`) + `/api/search`, `/api/status`, `/api/favorites`, `/api/requests`
 - `src/data/` — seed cafés + structured hours map (also the DB fallback)
 - `src/lib/` — Supabase client, scoring/filter logic, Anthropic layer
 - `src/components/` — search panel, map, cards, filters

@@ -4,11 +4,26 @@ node_modules/
 # next
 .next/
 out/
+.turbo/
 
 # env (never commit real keys)
 .env*.local
 .env
 
+# vercel
+.vercel/
+
+# logs
+*.log
+npm-debug.log*
+
 # misc
 .DS_Store
 *.tsbuildinfo
+coverage/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/*

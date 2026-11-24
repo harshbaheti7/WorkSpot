@@ -8,6 +8,7 @@ import {
   workScore,
 } from "@/lib/workscore";
 import DetailMap from "@/components/DetailMap";
+import FavoriteButton from "@/components/FavoriteButton";
 
 export const revalidate = 60;
 
@@ -92,12 +93,15 @@ export default async function CafePage({
         <h1 className="font-display text-4xl font-medium tracking-tight">
           {cafe.name}
         </h1>
-        <p className="text-sm text-muted">
-          <span className="font-display text-3xl font-semibold text-brand">
-            {score}
-          </span>{" "}
-          {scoreLabel(score)}
-        </p>
+        <div className="flex items-center gap-3">
+          <FavoriteButton cafeId={cafe.id} />
+          <p className="text-sm text-muted">
+            <span className="font-display text-3xl font-semibold text-brand">
+              {score}
+            </span>{" "}
+            {scoreLabel(score)}
+          </p>
+        </div>
       </div>
       {cafe.rating || cafe.price ? (
         <p className="mt-2 text-[15px] text-muted">
